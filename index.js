@@ -170,11 +170,9 @@ function autoGo() {
       console.log(`${successTimes} Times Successed!`);
     }
     return sleep(Math.ceil(Math.random() * 1000) + 500);
-  }).catch(e => console.error(e.message, e.stack)).then(() => autoGo());
+  }).then(() => autoGo()).catch(e => console.error(e.message, e.stack));
 }
 
-autoGo();
-autoGo();
-autoGo();
-autoGo();
-autoGo();
+for (let i = 0; i < 5; i++) {
+  autoGo();
+}
