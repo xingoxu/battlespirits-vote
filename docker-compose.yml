@@ -1,0 +1,8 @@
+version: '2'
+services: 
+  battlespirits-vote:
+    image: node:8
+    entrypoint: 
+      - npm
+      - start
+    working_dir: /
