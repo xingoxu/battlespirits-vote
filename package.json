@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prestart": "npm i",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "xingo",
