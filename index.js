@@ -17,7 +17,7 @@ const urlBase = `http://www.battlespirits.com/feature/10th-anniversary/dreamdeck
 
 let selectedValue = `バトルスピリッツ ソードアイズ：光と闇の邂逅`;
 // let selectedValue = `最強銀河 究極ゼロ 〜バトルスピリッツ〜：究極のゼロ`;
-let ip = `153.140.21.1`;
+let ip = require('./config.json').ip;
 
 function getIp() {
   let ipArray = ip.split('.').map(num => Number(num));
@@ -176,3 +176,9 @@ function autoGo() {
 for (let i = 0; i < 5; i++) {
   autoGo();
 }
+
+process.on('exit', () => {
+  require('fs').writeFileSync('./config.json', JSON.stringify({
+    ip
+  }, null, 2), 'utf8');
+});
