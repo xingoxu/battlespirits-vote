@@ -170,7 +170,12 @@ function autoGo() {
       console.log(`${successTimes} Times Successed!`);
     }
     return sleep(Math.ceil(Math.random() * 1000) + 500);
-  }).then(() => autoGo()).catch(e => console.error(e.message, e.stack));
+  }).then(() => autoGo()).catch(e => {
+    if (e.message == 'socket hang up' || e.code == 'ECONNRESET') {
+      return autoGo();
+    }
+    return Promise.reject(e);
+  }).catch(e => console.error(e.message, e.stack));
 }
 
 for (let i = 0; i < 5; i++) {
