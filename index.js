@@ -171,7 +171,8 @@ function autoGo() {
     }
     return sleep(Math.ceil(Math.random() * 1000) + 500);
   }).then(() => autoGo()).catch(e => {
-    if (e.message == 'socket hang up' || e.code == 'ECONNRESET') {
+    if (e.request) {
+      console.error('Network Error', e.message);
       return autoGo();
     }
     return Promise.reject(e);
