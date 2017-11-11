@@ -187,7 +187,7 @@ function autoGo() {
   }).then(() => autoGo()).catch(e => {
     if (e.request) {
       console.error('Network Error', e.message);
-      return autoGo();
+      return sleep(60 * 1000).then(() => autoGo());
     }
     return Promise.reject(e);
   }).catch(e => console.error(e.message, e.stack));
