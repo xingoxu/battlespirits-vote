@@ -15,8 +15,6 @@ const browserHeader = {
 const isDebug = false;
 const urlBase = `http://www.battlespirits.com/feature/10th-anniversary/dreamdeck/`;
 
-let selectedValue = `バトルスピリッツ ソードアイズ：光と闇の邂逅`;
-// let selectedValue = `最強銀河 究極ゼロ 〜バトルスピリッツ〜：究極のゼロ`;
 let ip = require('./config.json').ip;
 
 function getIp() {
@@ -35,7 +33,11 @@ async function getFirstPage() {
   let res = await axios.get(urlBase, {
     headers: {
       ...browserHeader,
-      'X-Forwarded-For': fakeIp
+      'X-Forwarded-For': fakeIp,
+      'Client-Ip': fakeIp,
+      'Forwarded-For': fakeIp,
+      'Forwarded': fakeIp,
+      'X-CLUSTER-CLIENT-IP': fakeIp
     }
   });
 
@@ -56,6 +58,10 @@ async function getFirstPage() {
   } else {
     throw new Error(`error occured at getting form view value.`);
   }
+  let selectedValue = successTimes % 2 == 0 ?
+    `バトルスピリッツ ソードアイズ：光と闇の邂逅` :
+    `最強銀河 究極ゼロ 〜バトルスピリッツ〜：究極のゼロ`;
+  
   return {
     formData: {
       view: formViewValue,
@@ -94,7 +100,11 @@ async function submitFirstPage(info) {
     headers: {
       ...browserHeader,
       Cookie: cookie,
-      'X-Forwarded-For': info.ip
+      'X-Forwarded-For': info.ip,
+      'Client-Ip': info.ip,
+      'Forwarded-For': info.ip,
+      'Forwarded': info.ip,
+      'X-CLUSTER-CLIENT-IP': info.ip
     }
   });
 
@@ -129,7 +139,11 @@ async function submitSecondPage(info) {
     headers: {
       ...browserHeader,
       Cookie: info.cookie,
-      'X-Forwarded-For': info.ip
+      'X-Forwarded-For': info.ip,
+      'Client-Ip': info.ip,
+      'Forwarded-For': info.ip,
+      'Forwarded': info.ip,
+      'X-CLUSTER-CLIENT-IP': info.ip
     }
   });
   let { window } = new JSDOM(res.data),
